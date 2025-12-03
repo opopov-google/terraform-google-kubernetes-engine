@@ -239,15 +239,8 @@ variable "network_config" {
     enable_private_nodes = optional(bool)
     pod_ipv4_cidr_block  = optional(string)
     pod_range            = optional(string)
-    additional_node_network_configs = optional(object({
-      network    = string
-      subnetwork = string
-    }))
-    additional_pod_network_configs = optional(object({
-      subnetwork          = string
-      secondary_pod_range = string
-      max_pods_per_node   = number
-    }))
+    additional_node_network_configs = optional(any)
+    additional_pod_network_configs = optional(any)
     pod_cidr_overprovision_config = optional(object({
       disabled = bool
     }))
