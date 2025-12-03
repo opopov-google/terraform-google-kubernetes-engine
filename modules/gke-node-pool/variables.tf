@@ -243,11 +243,20 @@ variable "network_config" {
       network    = string
       subnetwork = string
     }))
+    additional_node_network_configs_list = optional(list(object({
+      network    = string
+      subnetwork = string
+    })))
     additional_pod_network_configs = optional(object({
       subnetwork          = string
       secondary_pod_range = string
       max_pods_per_node   = number
     }))
+    additional_pod_network_configs_list = optional(list(object({
+      subnetwork          = string
+      secondary_pod_range = string
+      max_pods_per_node   = number
+    })))
     pod_cidr_overprovision_config = optional(object({
       disabled = bool
     }))

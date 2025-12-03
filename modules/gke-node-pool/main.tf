@@ -276,7 +276,10 @@ resource "google_container_node_pool" "main" {
       pod_range            = network_config.value.pod_range
 
       dynamic "additional_node_network_configs" {
-        for_each = network_config.value.additional_node_network_configs != null ? [network_config.value.additional_node_network_configs] : []
+        for_each = concat(
+            network_config.value.additional_node_network_configs != null ? [network_config.value.additional_node_network_configs] : [],
+            network_config.value.additional_node_network_configs_list != null ? network_config.value.additional_node_network_configs_list : []
+        )
         content {
           network    = additional_node_network_configs.value.network
           subnetwork = additional_node_network_configs.value.subnetwork
@@ -284,7 +287,10 @@ resource "google_container_node_pool" "main" {
       }
 
       dynamic "additional_pod_network_configs" {
-        for_each = network_config.value.additional_pod_network_configs != null ? [network_config.value.additional_pod_network_configs] : []
+        for_each = concat(
+            network_config.value.additional_pod_network_configs != null ? [network_config.value.additional_pod_network_configs] : [],
+            network_config.value.additional_pod_network_configs_list != null ? network_config.value.additional_pod_network_configs_list : []
+        )
         content {
           subnetwork          = additional_pod_network_configs.value.subnetwork
           secondary_pod_range = additional_pod_network_configs.value.secondary_pod_range
